@@ -1,0 +1,15 @@
+.place__delete-btn {
+  background: url(../../../images/basket.svg);
+  border: none;
+  width: 18px;
+  height: 19px;
+  padding: 0;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.place__delete-btn:hover {
+  opacity: 0.5;
+}

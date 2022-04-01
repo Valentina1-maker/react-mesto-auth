@@ -1,0 +1,10 @@
+.root__content {
+  margin: 0 auto;
+  min-height: 2268px;
+}
+
+@media screen and (min-width: 1024px) {
+  .root__content {
+    min-height: 1100px;
+  }
+}

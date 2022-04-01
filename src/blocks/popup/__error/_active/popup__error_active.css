@@ -1,0 +1,6 @@
+.popup__error_active {
+  display: flex;
+  max-width: 238px;
+  min-height: 40px;
+  visibility: visible;
+}

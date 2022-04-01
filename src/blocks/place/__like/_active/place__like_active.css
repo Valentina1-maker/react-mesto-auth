@@ -1,0 +1,6 @@
+.place__like_active {
+  border: none;
+  width: 22px;
+  height: 19px;
+  background-image: url(../../../../images/like-active.svg);
+}

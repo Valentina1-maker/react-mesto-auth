@@ -1,0 +1,61 @@
+.profile__avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin: 38px auto 22px;
+  background-size: cover;
+  position: relative;
+  cursor: pointer;
+  background: #ff0000;
+  background-image: url("../../../images/avatar.png");
+}
+
+.profile__avatar::before,
+.profile__avatar::after {
+  content: "";
+  position: absolute;
+  transition: 0.3s;
+  pointer-events: none;
+  margin: auto;
+}
+
+.profile__avatar::before {
+  background: rgba(0, 0, 0, 0);
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.profile__avatar::after {
+  width: 26px;
+  height: 26px;
+  background-image: url("../../../images/edit-avatar.svg");
+  background-size: contain;
+  background-position: center;
+  opacity: 0;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.profile__avatar:hover::before {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.profile__avatar:hover::after {
+  opacity: 1;
+}
+
+@media screen and (min-width: 1024px) {
+  .profile__avatar {
+    margin: 0 30px 0 0;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .profile__avatar {
+    margin: 0 30px 0 0;
+  }
+}
