@@ -1,9 +1,12 @@
 .header {
   width: 100%;
   min-height: 56px;
-  position: relative;
+  position: relative; 
   border-bottom: 1px solid #545454;
   padding-top: 28px;
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  align-items: flex-start;
 }
 
 @media screen and (min-width: 768px) {
@@ -14,8 +17,8 @@
   }
 }
 
-@media screen and (min-width: 1024px) {
+ @media screen and (min-width: 1024px) {
   .header {
     max-width: 880px;
   }
-}
+} 

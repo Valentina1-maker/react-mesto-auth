@@ -8,6 +8,13 @@ import EditAvatarPopup from "./EditAvatarPopup";
 import ImagePopup from "./ImagePopup";
 import Api from "../utils/Api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { Route } from 'react-router-dom';
+import { Switch } from "react-router-dom";
+import Login from "./Login";
+import Register from "./Register"
+import { Redirect, useHistory } from "react-router-dom";
+import ProtectedRoute from "./ProtectedRoute";
+
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -16,6 +23,30 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({ isOpened: false });
   const [currentUser, setCurrentUser] = useState({ name: "Кошечка" });
   const [cards, setUserCards] = useState([]);
+  const [loggedIn, setLoggedIn] = useState(false)
+  
+
+  // useEffect(() => {
+  //   tokenCheck()
+  // }, [])
+
+
+
+  // const tokenCheck = () => {
+  //   const jwt = localStorage.getItem("jwt") //получаем сохраненные данные
+  //   if (jwt) {
+  //     Auth.getToken(jwt).then((res) => {
+  //       if (res.email) {
+  //         setUserEmail(res.email)
+  //         setLoggedIn(true)
+  //         history.push('/')
+  //       }
+  //     })
+  //   }
+  // }
+
+
+
 
   useEffect(() => {
     Api.getInitialCards()
@@ -110,17 +141,32 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="root">
-        <Header />
-        <Main
-          cards={cards}
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          onEditAvatar={handleEditAvatarClick}
-          onCardClick={handleCardClick}
-          onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
-        />
-        <Footer />
+        <Switch>
+          <ProtectedRoute exact path="/"
+            loggedIn={loggedIn}
+            component={Main}
+            onEditProfile={handleEditProfileClick}
+            onAddPlace={handleAddPlaceClick}
+            onEditAvatar={handleEditAvatarClick}
+            onCardClick={handleCardClick}
+            onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
+            cards={cards} />
+
+          <Route path="/sign-up">
+            <Register />
+          </Route>
+
+          <Route path="/sign-in">
+            <Login />
+          </Route>
+
+          <Route path="*">
+            <Redirect to="/" />
+          </Route>
+
+        </Switch>
+
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}

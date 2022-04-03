@@ -1,0 +1,10 @@
+.register {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    align-items: stretch;
+    width: 100%;
+    max-width: 358px;
+    min-width: 320px;
+  }
