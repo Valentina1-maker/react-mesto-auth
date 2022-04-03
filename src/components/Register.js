@@ -28,9 +28,8 @@ const handleSubmit =(e) => {
       if(res){
         setData({
           message: ''
-        }, () => {
-          history.push('/sign-in');
         })
+        history.push('/sign-in');
       } else {
         setData({
           message: 'Что-то пошло не так!'
@@ -38,7 +37,6 @@ const handleSubmit =(e) => {
       }
     })
   }
-
 
 
 return (

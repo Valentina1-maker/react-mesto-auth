@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 //import Api from "../utils/Api";
 import Card from "./Card";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import Header from "./Header"
 
 function Main({
   cards,
@@ -11,10 +12,19 @@ function Main({
   onCardClick,
   onCardLike,
   onCardDelete,
+  mailHandler,
+  onSignOut,
+  onHeaderButton
 }) {
   const userInfo = React.useContext(CurrentUserContext);
 
   return (
+    <>
+    <Header
+      buttonText="Выйти"
+      onHeaderButton={onHeaderButton}
+      linkHandler={onSignOut}
+      mailHandler={mailHandler} />
     <main className="content root__content">
       <section className="profile">
         <div
@@ -49,6 +59,7 @@ function Main({
         ))}
       </section>
     </main>
+    </>
   );
 }
 

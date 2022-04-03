@@ -14,6 +14,7 @@ import Login from "./Login";
 import Register from "./Register"
 import { Redirect, useHistory } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
+import * as Auth from './Auth'
 
 
 function App() {
@@ -24,29 +25,46 @@ function App() {
   const [currentUser, setCurrentUser] = useState({ name: "Кошечка" });
   const [cards, setUserCards] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false)
+  const [userEmail, setUserEmail] = useState('')
   
+  
+  const history = useHistory();
 
-  // useEffect(() => {
-  //   tokenCheck()
-  // }, [])
+  useEffect(() => {
+    tokenCheck()
+  }, [])
+
+  const tokenCheck = () => {
+    const jwt = localStorage.getItem("jwt") //получаем сохраненные данные
+    if (jwt) {
+      Auth.getToken(jwt).then((res) => {
+        if (res.email) {
+          setUserEmail(res.email)
+          setLoggedIn(true)
+          history.push('/')
+        }
+      })
+    }
+  }
+
+  const handleLogin = (email, password) => {
+    Auth.login(email, password)
+      .then(res => {
+        if (res.token) {
+          localStorage.setItem('token', res.token)
+          setLoggedIn(true)
+          history.push('/')
+        }
+      })
+      .catch(err => console.log(err))
+  }
 
 
-
-  // const tokenCheck = () => {
-  //   const jwt = localStorage.getItem("jwt") //получаем сохраненные данные
-  //   if (jwt) {
-  //     Auth.getToken(jwt).then((res) => {
-  //       if (res.email) {
-  //         setUserEmail(res.email)
-  //         setLoggedIn(true)
-  //         history.push('/')
-  //       }
-  //     })
-  //   }
-  // }
-
-
-
+  const onSignOut = () => {
+    localStorage.removeItem('token')
+    setLoggedIn(false)
+    setUserEmail('')
+  }
 
   useEffect(() => {
     Api.getInitialCards()
@@ -145,20 +163,23 @@ function App() {
           <ProtectedRoute exact path="/"
             loggedIn={loggedIn}
             component={Main}
+            onSignOut={onSignOut}
+            mailHandler={userEmail}
             onEditProfile={handleEditProfileClick}
             onAddPlace={handleAddPlaceClick}
             onEditAvatar={handleEditAvatarClick}
             onCardClick={handleCardClick}
             onCardLike={handleCardLike}
             onCardDelete={handleCardDelete}
-            cards={cards} />
+            cards={cards}
+             />
 
           <Route path="/sign-up">
             <Register />
           </Route>
 
           <Route path="/sign-in">
-            <Login />
+            <Login handleLogin={handleLogin}/>
           </Route>
 
           <Route path="*">
@@ -183,6 +204,7 @@ function App() {
           onUpdateAvatar={handleUpdateAvatar}
         />
         <ImagePopup onClose={closeAllPopups} card={selectedCard} />
+        
       </div>
     </CurrentUserContext.Provider>
   );

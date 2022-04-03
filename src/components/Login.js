@@ -1,8 +1,9 @@
 import Header from "./Header"
 import { useState } from 'react';
 import { useHistory } from "react-router-dom";
+import * as Auth from './Auth'
 
-const Login = ({ handleLogin, waiting }) => {
+const Login = ({handleLogin}) => {
     const [data, setData] = useState({
         email: '',
         password: '',
@@ -53,7 +54,7 @@ return (
                 onChange={handleChange}
                 />
                 
-                <button type="submit" className="popup__submit register__button" aria-label={waiting || 'Войти'}>{waiting || 'Войти'}</button>
+                <button type="submit" className="popup__submit register__button">Войти</button>
             </form>
         </section>
     </>
