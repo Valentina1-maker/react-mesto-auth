@@ -7,8 +7,7 @@
     font-size: 18px;
     line-height: 22px;
     transition: .3s linear;
-    background-color: brown;
-
+    color: #fff;
   }
   
   @media screen and (max-width: 880px) {

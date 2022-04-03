@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import Header from './Header'
-import * as Auth from './Auth'
 
-const Register = () => {
+
+const Register = ({handleRegister}) => {
     const[data, setData] = useState({
         email: '',
         password: '',
@@ -23,21 +23,9 @@ const handleChange = (e) => {
 const handleSubmit =(e) => {
     e.preventDefault();
     const { email, password } = data
-    Auth.register(email, password)
-    .then((res) => {
-      if(res){
-        setData({
-          message: ''
-        })
-        history.push('/sign-in');
-      } else {
-        setData({
-          message: 'Что-то пошло не так!'
-        })
-      }
-    })
+    handleRegister(email, password)
+    history.push('/sign-in')
   }
-
 
 return (
     <>
@@ -72,7 +60,7 @@ return (
             </form>
 
             <div className="register__login">
-                <p className="register__login-text">Уже зарегистрированы&nbsp;</p>
+                <p className="register__login-text">Уже зарегистрированы&#63;&nbsp;</p>
                 <Link to="/sign-in" className="register__link">Войти</Link>
             </div>
         </section>

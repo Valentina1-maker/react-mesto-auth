@@ -61,6 +61,9 @@
 @import url(./blocks/popup/__input/_type/popup__input_type_name-card.css);
 @import url(./blocks/popup/__error/popup__error.css);
 @import url(./blocks/popup/__error/_active/popup__error_active.css);
+@import url(./blocks/popup/__result-img/popup__result-img.css);
+@import url(./blocks/popup/__result-text/popup__result-text.css);
+@import url(./blocks/popup/__content/_info/popup__content_info.css);
 
 @import url(./blocks/popup/__submit/popup__submit.css);
 @import url(./blocks/popup/__title/popup__title.css);
@@ -71,5 +74,8 @@
 @import url(./blocks/register/__form/register__form.css);
 @import url(./blocks/register/__input/register__input.css);
 @import url(./blocks/register/__input/_type/register__input_type_password.css);
+@import url(./blocks/register/__link/register__link.css);
+@import url(./blocks/register/__login-text/register__login-text.css);
+@import url(./blocks/register/__login/register__login.css);
 
 
