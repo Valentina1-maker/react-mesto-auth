@@ -35,7 +35,7 @@ function App() {
   }, [])
 
   const tokenCheck = () => {
-    const jwt = localStorage.getItem("jwt") //получаем сохраненные данные
+    const jwt = localStorage.getItem('jwt') //получаем сохраненные данные
     if (jwt) {
       Auth.getToken(jwt).then((res) => {
         if (res.email) {
@@ -51,7 +51,7 @@ function App() {
     Auth.login(email, password)
       .then(res => {
         if (res.token) {
-          localStorage.setItem('token', res.token)
+          localStorage.setItem('jwt', res.token)
           setLoggedIn(true)
           history.push('/')
         }
