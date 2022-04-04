@@ -11,12 +11,7 @@ export const register = (email, password) => {
     },
     body: JSON.stringify({email, password})
   })
-  .then((response) => {
-    return response.json();
-  })
-  .then((res) => {
-    return res;
-  })
+  .then(handleResponse)
 };
 
 
@@ -29,12 +24,7 @@ export const login = (email, password) => {
     },
     body: JSON.stringify({email, password})
   })
-  .then((response) => {
-    return response.json();
-  })
-  .then((res) => {
-    return res;
-  })
+  .then(handleResponse)
 };
  
 
