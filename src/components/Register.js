@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import Header from './Header'
 
 
-const Register = ({handleRegister}) => {
+const Register = ({handleRegister, waiting}) => {
     const[data, setData] = useState({
         email: '',
         password: '',
@@ -24,7 +24,6 @@ const handleSubmit =(e) => {
     e.preventDefault();
     const { email, password } = data
     handleRegister(email, password)
-    history.push('/sign-in')
   }
 
 return (
@@ -56,7 +55,7 @@ return (
                 onChange={handleChange}
                 />
                 
-                <button type="submit" className="popup__submit register__button" onSubmit={handleSubmit}>Регистрация</button>
+                <button type="submit" className="popup__submit register__button">{waiting || 'Зарегистрироваться'}</button>
             </form>
 
             <div className="register__login">

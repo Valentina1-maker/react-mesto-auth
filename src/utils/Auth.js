@@ -17,7 +17,6 @@ export const register = (email, password) => {
   .then((res) => {
     return res;
   })
-  .then(handleResponse)
 };
 
 
@@ -36,7 +35,6 @@ export const login = (email, password) => {
   .then((res) => {
     return res;
   })
-  .then(handleResponse)
 };
  
 

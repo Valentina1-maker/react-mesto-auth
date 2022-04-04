@@ -14,7 +14,7 @@ import Login from "./Login";
 import Register from "./Register"
 import { Redirect, useHistory } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
-import * as Auth from './Auth'
+import * as Auth from '../utils/Auth'
 import InfoTooltip from "./InfoTooltip"
 import doneImage from "../images/done-image.svg"
 import nopeImage from "../images/nope-image.svg"
@@ -32,6 +32,7 @@ function App() {
   const [isInfoPopupOpen, setIsInfoPopupOpen] = useState(false)
   const [infoPic, setInfoPic] = useState(null)
   const [infoText, setInfoText] = useState(null)
+  const [waiting, setWaiting] = useState(null)
   
   
   const history = useHistory();
@@ -61,31 +62,33 @@ function App() {
     Auth.login(email, password)
       .then(res => {
         if (res.token) {
-          console.log(res.token)
           localStorage.setItem('token', res.token)
           setUserEmail(email)
           setLoggedIn(true)
           history.push('/')
         }
       })
-      .catch(err => console.log(err))
+      .catch(err => {console.log(err)
+        setInfoText('Что-то пошло не так! Попробуйте ещё раз.')
+        setInfoPic(nopeImage)
+        handleInfoPopup()})
   }
 
   const handleRegister = (email, password) => {
+    setWaiting('Регистрация...')
     Auth.register(email, password)
     .then((res) => {
       if (res.data.email) {
         setInfoText('Вы успешно зарегистрировались!')
         setInfoPic(doneImage)
         handleInfoPopup()
-        setTimeout(() => {
-          handleLogin(email, password);
-        }, 100)}
+        history.push("/sign-in")}
       })
     .catch(err => {console.log(err)
     setInfoText('Что-то пошло не так! Попробуйте ещё раз.')
     setInfoPic(nopeImage)
-    handleInfoPopup()}) 
+    handleInfoPopup()})
+    .finally(() => {setWaiting(null)})
   }
 
   const onSignOut = () => {
@@ -95,12 +98,13 @@ function App() {
   }
 
   useEffect(() => {
+    if(loggedIn === true)
     Api.getInitialCards()
       .then((res) => {
         setUserCards(res);
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [loggedIn]);
 
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
@@ -123,12 +127,13 @@ function App() {
   }
 
   useEffect(() => {
+    if(loggedIn === true)
     Api.getUserInfo()
       .then((res) => {
         setCurrentUser(res);
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [loggedIn]);
 
   function handleCardClick({ link, name, isOpened }) {
     setSelectedCard({
@@ -208,7 +213,7 @@ function App() {
              />
 
           <Route path="/sign-up">
-            <Register handleRegister={handleRegister} />
+            <Register handleRegister={handleRegister} waiting={waiting} />
           </Route>
 
           <Route path="/sign-in">

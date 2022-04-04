@@ -1,7 +1,7 @@
 import Header from "./Header"
 import { useState } from 'react';
 import { useHistory } from "react-router-dom";
-import * as Auth from './Auth'
+
 
 const Login = ({handleLogin}) => {
     const [data, setData] = useState({
