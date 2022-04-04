@@ -32,6 +32,7 @@ function App() {
   const [isInfoPopupOpen, setIsInfoPopupOpen] = useState(false)
   const [infoPic, setInfoPic] = useState(null)
   const [infoText, setInfoText] = useState(null)
+  const [waiting, setWaiting] = useState(null)
   
   
   const history = useHistory();
@@ -49,6 +50,7 @@ function App() {
           history.push('/')
         }
       })
+      .catch(err => console.log(err))
     }
   }
 
@@ -71,6 +73,7 @@ function App() {
   }
 
   const handleRegister = (email, password) => {
+    setWaiting('Регистрация...')
     Auth.register(email, password)
     .then((res) => {
       if (res.data.email) {
@@ -85,6 +88,7 @@ function App() {
     setInfoText('Что-то пошло не так! Попробуйте ещё раз.')
     setInfoPic(nopeImage)
     handleInfoPopup()})
+    .finally(() => {setWaiting(null)})
   }
 
   const onSignOut = () => {
