@@ -56,7 +56,7 @@ return (
                 onChange={handleChange}
                 />
                 
-                <button type="submit" className="popup__submit register__button" onSubmit={handleSubmit}>Войти</button>
+                <button type="submit" className="popup__submit register__button" onSubmit={handleSubmit}>Регистрация</button>
             </form>
 
             <div className="register__login">

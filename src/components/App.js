@@ -32,7 +32,6 @@ function App() {
   const [isInfoPopupOpen, setIsInfoPopupOpen] = useState(false)
   const [infoPic, setInfoPic] = useState(null)
   const [infoText, setInfoText] = useState(null)
-  const [waiting, setWaiting] = useState(null)
   
   
   const history = useHistory();
@@ -73,7 +72,6 @@ function App() {
   }
 
   const handleRegister = (email, password) => {
-    setWaiting('Регистрация...')
     Auth.register(email, password)
     .then((res) => {
       if (res.data.email) {
@@ -87,8 +85,7 @@ function App() {
     .catch(err => {console.log(err)
     setInfoText('Что-то пошло не так! Попробуйте ещё раз.')
     setInfoPic(nopeImage)
-    handleInfoPopup()})
-    .finally(() => {setWaiting(null)})
+    handleInfoPopup()}) 
   }
 
   const onSignOut = () => {
@@ -211,7 +208,7 @@ function App() {
              />
 
           <Route path="/sign-up">
-            <Register handleRegister={handleRegister}/>
+            <Register handleRegister={handleRegister} />
           </Route>
 
           <Route path="/sign-in">
