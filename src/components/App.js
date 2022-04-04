@@ -39,9 +39,9 @@ function App() {
   
 
   const tokenCheck = () => {
-    const jwt = localStorage.getItem('token') //получаем сохраненные данные
-    if (jwt) {
-      Auth.getToken(jwt)
+    const token = localStorage.getItem('token') //получаем сохраненные данные
+    if (token) {
+      Auth.getToken(token)
       .then(({data:{email}}) => {
         if (email) {
           setUserEmail(email)
@@ -60,6 +60,7 @@ function App() {
     Auth.login(email, password)
       .then(res => {
         if (res.token) {
+          console.log(res.token)
           localStorage.setItem('token', res.token)
           setUserEmail(email)
           setLoggedIn(true)
@@ -78,7 +79,7 @@ function App() {
         handleInfoPopup()
         setTimeout(() => {
           handleLogin(email, password);
-        }, 10)}
+        }, 100)}
       })
     .catch(err => {console.log(err)
     setInfoText('Что-то пошло не так! Попробуйте ещё раз.')

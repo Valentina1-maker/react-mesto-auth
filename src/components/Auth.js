@@ -36,12 +36,6 @@ export const login = (email, password) => {
   .then((res) => {
     return res;
   })
-  // .then((data)=> {
-  //   if (data.user) {
-  //     localStorage.setItem('jwt', data.jwt);
-  //     return data;
-  //   }
-  // })
   .catch((err) => console.log(err));
 };
  
