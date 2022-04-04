@@ -1,19 +1,17 @@
 .header__menu {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    transition: .3s linear;
-    background-color: #000;
-    align-items: center;
-    display: grid;
-    grid-template-columns: repeat(2, min-content);
-    gap: 24px;
-  }
-  
- @media screen and (max-width: 880px) {
-    .header__menu {
-      margin: 6px 27px 0 0;
-    }
-  }
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  transition: 0.3s linear;
+  background-color: #000;
+  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(2, min-content);
+  gap: 24px;
+}
 
-  
+@media screen and (max-width: 880px) {
+  .header__menu {
+    margin: 6px 27px 0 0;
+  }
+}

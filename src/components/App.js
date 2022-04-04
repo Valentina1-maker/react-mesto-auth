@@ -8,17 +8,16 @@ import EditAvatarPopup from "./EditAvatarPopup";
 import ImagePopup from "./ImagePopup";
 import Api from "../utils/Api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import { Route } from 'react-router-dom';
+import { Route } from "react-router-dom";
 import { Switch } from "react-router-dom";
 import Login from "./Login";
-import Register from "./Register"
+import Register from "./Register";
 import { Redirect, useHistory } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
-import * as Auth from '../utils/Auth'
-import InfoTooltip from "./InfoTooltip"
-import doneImage from "../images/done-image.svg"
-import nopeImage from "../images/nope-image.svg"
-
+import * as Auth from "../utils/Auth";
+import InfoTooltip from "./InfoTooltip";
+import doneImage from "../images/done-image.svg";
+import nopeImage from "../images/nope-image.svg";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -27,83 +26,87 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({ isOpened: false });
   const [currentUser, setCurrentUser] = useState({ name: "Кошечка" });
   const [cards, setUserCards] = useState([]);
-  const [loggedIn, setLoggedIn] = useState(false)
-  const [userEmail, setUserEmail] = useState('')
-  const [isInfoPopupOpen, setIsInfoPopupOpen] = useState(false)
-  const [infoPic, setInfoPic] = useState(null)
-  const [infoText, setInfoText] = useState(null)
-  const [waiting, setWaiting] = useState(null)
-  
-  
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
+  const [isInfoPopupOpen, setIsInfoPopupOpen] = useState(false);
+  const [infoPic, setInfoPic] = useState(null);
+  const [infoText, setInfoText] = useState(null);
+  const [waiting, setWaiting] = useState(null);
+
   const history = useHistory();
 
-  
-
   const tokenCheck = () => {
-    const token = localStorage.getItem('token') //получаем сохраненные данные
+    const token = localStorage.getItem("token"); //получаем сохраненные данные
     if (token) {
       Auth.getToken(token)
-      .then(({data:{email}}) => {
-        if (email) {
-          setUserEmail(email)
-          setLoggedIn(true)
-          history.push('/')
-        }
-      })
-      .catch(err => console.log(err))
+        .then(({ data: { email } }) => {
+          if (email) {
+            setUserEmail(email);
+            setLoggedIn(true);
+            history.push("/");
+          }
+        })
+        .catch((err) => console.log(err));
     }
-  }
+  };
 
   useEffect(() => {
-    tokenCheck()
-  }, [])
+    tokenCheck();
+  }, []);
 
   const handleLogin = (email, password) => {
     Auth.login(email, password)
-      .then(res => {
+      .then((res) => {
         if (res.token) {
-          localStorage.setItem('token', res.token)
-          setUserEmail(email)
-          setLoggedIn(true)
-          history.push('/')
+          localStorage.setItem("token", res.token);
+          setUserEmail(email);
+          setLoggedIn(true);
+          history.push("/");
         }
       })
-      .catch(err => {console.log(err)
-        setInfoText('Что-то пошло не так! Попробуйте ещё раз.')
-        setInfoPic(nopeImage)
-        handleInfoPopup()})
-  }
+      .catch((err) => {
+        console.log(err);
+        setInfoText("Что-то пошло не так! Попробуйте ещё раз.");
+        setInfoPic(nopeImage);
+        handleInfoPopup();
+      });
+  };
 
   const handleRegister = (email, password) => {
-    setWaiting('Регистрация...')
+    setWaiting("Регистрация...");
     Auth.register(email, password)
-    .then((res) => {
-      if (res.data.email) {
-        setInfoText('Вы успешно зарегистрировались!')
-        setInfoPic(doneImage)
-        handleInfoPopup()
-        history.push("/sign-in")}
+      .then((res) => {
+        if (res.data.email) {
+          setInfoText("Вы успешно зарегистрировались!");
+          setInfoPic(doneImage);
+          handleInfoPopup();
+          history.push("/sign-in");
+        }
       })
-    .catch(err => {console.log(err)
-    setInfoText('Что-то пошло не так! Попробуйте ещё раз.')
-    setInfoPic(nopeImage)
-    handleInfoPopup()})
-    .finally(() => {setWaiting(null)})
-  }
+      .catch((err) => {
+        console.log(err);
+        setInfoText("Что-то пошло не так! Попробуйте ещё раз.");
+        setInfoPic(nopeImage);
+        handleInfoPopup();
+      })
+      .finally(() => {
+        setWaiting(null);
+      });
+  };
 
   const onSignOut = () => {
-    localStorage.removeItem('token')
-    setLoggedIn(false)
-    setUserEmail('')
-  }
+    localStorage.removeItem("token");
+    setLoggedIn(false);
+    setUserEmail("");
+  };
 
   useEffect(() => {
-    if(loggedIn === true)
-    Api.getInitialCards()
-      .then((res) => {
-        setUserCards(res);
-      })
-      .catch((error) => console.log(error));
+    if (loggedIn === true)
+      Api.getInitialCards()
+        .then((res) => {
+          setUserCards(res);
+        })
+        .catch((error) => console.log(error));
   }, [loggedIn]);
 
   function handleCardLike(card) {
@@ -127,12 +130,12 @@ function App() {
   }
 
   useEffect(() => {
-    if(loggedIn === true)
-    Api.getUserInfo()
-      .then((res) => {
-        setCurrentUser(res);
-      })
-      .catch((error) => console.log(error));
+    if (loggedIn === true)
+      Api.getUserInfo()
+        .then((res) => {
+          setCurrentUser(res);
+        })
+        .catch((error) => console.log(error));
   }, [loggedIn]);
 
   function handleCardClick({ link, name, isOpened }) {
@@ -156,15 +159,15 @@ function App() {
   }
 
   const handleInfoPopup = () => {
-    setIsInfoPopupOpen(!isInfoPopupOpen)
-  }
+    setIsInfoPopupOpen(!isInfoPopupOpen);
+  };
 
   const closeAllPopups = () => {
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setSelectedCard({ isOpened: false });
-    setIsInfoPopupOpen(false)
+    setIsInfoPopupOpen(false);
   };
 
   function handleUpdateUser(userData) {
@@ -198,7 +201,9 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="root">
         <Switch>
-          <ProtectedRoute exact path="/"
+          <ProtectedRoute
+            exact
+            path="/"
             loggedIn={loggedIn}
             component={Main}
             onSignOut={onSignOut}
@@ -210,20 +215,19 @@ function App() {
             onCardLike={handleCardLike}
             onCardDelete={handleCardDelete}
             cards={cards}
-             />
+          />
 
           <Route path="/sign-up">
             <Register handleRegister={handleRegister} waiting={waiting} />
           </Route>
 
           <Route path="/sign-in">
-            <Login handleLogin={handleLogin}/>
+            <Login handleLogin={handleLogin} />
           </Route>
 
           <Route path="*">
             <Redirect to="/" />
           </Route>
-
         </Switch>
 
         <EditProfilePopup
@@ -248,8 +252,7 @@ function App() {
           isOpen={isInfoPopupOpen}
           infoPic={infoPic}
           infoText={infoText}
-          />
-        
+        />
       </div>
     </CurrentUserContext.Provider>
   );

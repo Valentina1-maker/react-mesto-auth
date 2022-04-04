@@ -33,7 +33,6 @@
 @import url(./blocks/header/__mail/header__mail.css);
 @import url(./blocks/header/__menu/header__menu.css);
 
-
 @import url(./blocks/profile/profile.css);
 @import url(./blocks/profile/__avatar/profile__avatar.css);
 @import url(./blocks/profile/__description/profile__description.css);
@@ -78,5 +77,3 @@
 @import url(./blocks/register/__link/register__link.css);
 @import url(./blocks/register/__login-text/register__login-text.css);
 @import url(./blocks/register/__login/register__login.css);
-
-
