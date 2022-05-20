@@ -63,7 +63,7 @@ class Api {
 }
 
 export default new Api({
-  url: "http://domainmesto.students.nomoredomains.xyz",
+  url: "https://domainmesto.students.nomoredomains.xyz",
   headers: {
     Authorization: `Bearer ${localStorage.getItem('token')}`,
     "Content-Type": "application/json",
