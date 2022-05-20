@@ -1,6 +1,5 @@
-import Header from "./Header";
+
 import Main from "./Main";
-import Footer from "./Footer";
 import React, { useEffect, useState } from "react";
 import EditProfilePopup from "./EditProfilePopup";
 import AddCardPopup from "./AddCardPopup";
@@ -52,7 +51,7 @@ function App() {
 
   useEffect(() => {
     tokenCheck();
-  }, []);
+  })
 
   const handleLogin = (email, password) => {
     Auth.login(email, password)

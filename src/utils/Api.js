@@ -63,9 +63,9 @@ class Api {
 }
 
 export default new Api({
-  url: "https://mesto.nomoreparties.co/v1/cohort-35",
+  url: "http://api.domainmesto.students.nomoredomains.xyz",
   headers: {
-    Authorization: "a4d309a8-d7ef-4235-aee4-eee535ca4905",
+    Authorization: `Bearer ${localStorage.getItem('token')}`,
     "Content-Type": "application/json",
   },
 });
