@@ -51,7 +51,7 @@ function App() {
 
   useEffect(() => {
     tokenCheck();
-  })
+  }, [])
 
   const handleLogin = (email, password) => {
     Auth.login(email, password)
