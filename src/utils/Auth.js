@@ -25,13 +25,3 @@ export const login = (email, password) => {
   }).then(handleResponse);
 };
 
-export const getToken = (token) => {
-  return fetch(`${BASE_URL}/users/me`, {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  }).then(handleResponse);
-};

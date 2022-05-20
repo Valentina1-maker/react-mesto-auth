@@ -37,7 +37,7 @@ function App() {
   const tokenCheck = () => {
     const token = localStorage.getItem("token"); //получаем сохраненные данные
     if (token) {
-      Auth.getToken(token)
+      Api.getUserInfo(token)
         .then(({ data: { email } }) => {
           if (email) {
             setUserEmail(email);
@@ -100,12 +100,19 @@ function App() {
   };
 
   useEffect(() => {
-    if (loggedIn === true)
-      Api.getInitialCards()
-        .then((res) => {
-          setUserCards(res);
-        })
-        .catch((error) => console.log(error));
+    if (!loggedIn) return
+
+    Api.getInitialCards()
+      .then((res) => {
+        setUserCards(res);
+      })
+      .catch((error) => console.log(error));
+
+    Api.getUserInfo()
+      .then((res) => {
+        setCurrentUser(res);
+      })
+      .catch((error) => console.log(error));
   }, [loggedIn]);
 
   function handleCardLike(card) {
@@ -127,15 +134,6 @@ function App() {
       })
       .catch((error) => console.log(error));
   }
-
-  useEffect(() => {
-    if (loggedIn === true)
-      Api.getUserInfo()
-        .then((res) => {
-          setCurrentUser(res);
-        })
-        .catch((error) => console.log(error));
-  }, [loggedIn]);
 
   function handleCardClick({ link, name, isOpened }) {
     setSelectedCard({
