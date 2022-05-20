@@ -17,8 +17,8 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
     onCardDelete(card);
   }
 
-  const isOwn = card.owner._id === currentUserId;
-  const isLiked = card.likes.some((i) => i._id === currentUserId);
+  const isOwn = card.owner === currentUserId;
+  const isLiked = card.likes.some((i) => i === currentUserId);
 
   const cardDeleteButtonClassName = `place__delete-btn ${
     isOwn ? "" : "place__delete-btn_none"
@@ -39,7 +39,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
       <button
         className={cardDeleteButtonClassName}
         onClick={handleDeleteClick}
-      ></button>
+      />
       <div className="place__text">
         <h3 className="place__title">{card.name}</h3>
         <div className="place__likes">
@@ -47,7 +47,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
             type="button"
             className={cardLikeButtonClassName}
             onClick={handleLikeClick}
-          ></button>
+          />
           <p className="place__like-counter">{card.likes.length}</p>
         </div>
       </div>

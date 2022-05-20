@@ -45,7 +45,7 @@ class Api {
   }
 
   toggleLike(cardId, isDelete) {
-    return fetch(`${this._url}/cards/likes/${cardId}`, {
+    return fetch(`${this._url}/cards/${cardId}/likes`, {
       method: isDelete ? "DELETE" : "PUT",
       headers: this._headers,
     }).then((res) => this._checkResponse(res));

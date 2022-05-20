@@ -38,9 +38,9 @@ function App() {
     const token = localStorage.getItem("token"); //получаем сохраненные данные
     if (token) {
       Api.getUserInfo(token)
-        .then(({ data: { email } }) => {
-          if (email) {
-            setUserEmail(email);
+        .then((data) => {
+          if (data.email) {
+            setUserEmail(data.email);
             setLoggedIn(true);
             history.push("/");
           }
@@ -104,7 +104,7 @@ function App() {
 
     Api.getInitialCards()
       .then((res) => {
-        setUserCards(res);
+        setUserCards(res.data);
       })
       .catch((error) => console.log(error));
 
@@ -116,10 +116,10 @@ function App() {
   }, [loggedIn]);
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((i) => i === currentUser._id);
 
     Api.toggleLike(card._id, isLiked)
-      .then((newCard) => {
+      .then(([newCard]) => {
         setUserCards((state) =>
           state.map((c) => (c._id === card._id ? newCard : c))
         );
@@ -188,7 +188,7 @@ function App() {
   function handleAddPlaceSubmit(newCard) {
     Api.createCard(newCard)
       .then((newCard) => {
-        setUserCards([newCard, ...cards]);
+        setUserCards([newCard.card, ...cards]);
         closeAllPopups();
       })
       .catch((error) => console.log(error));
