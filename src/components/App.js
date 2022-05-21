@@ -75,10 +75,10 @@ function App() {
     setWaiting("Регистрация...");
     Auth.register(email, password)
       .then((res) => {
-        if (res.data.email) {
+        if (res.email) {
           setInfoText("Вы успешно зарегистрировались!");
           setInfoPic(doneImage);
-          //handleInfoPopup();
+          handleInfoPopup();
           history.push("/sign-in");
         }
       })
