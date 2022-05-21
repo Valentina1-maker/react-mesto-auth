@@ -78,7 +78,7 @@ function App() {
         if (res.data.email) {
           setInfoText("Вы успешно зарегистрировались!");
           setInfoPic(doneImage);
-          handleInfoPopup();
+          //handleInfoPopup();
           history.push("/sign-in");
         }
       })
